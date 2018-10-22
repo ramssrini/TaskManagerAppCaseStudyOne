@@ -13,11 +13,6 @@ import { switchMap } from 'rxjs/operators';
 })
 export class UpdatetaskComponent implements OnInit {
   public task :TaskVO;
-  @Input('taskName') taskName : string;
-  parentTaskName : string;
-  startDate : string;
-  endDate: string;
-  priority : string;
   selectedId: string;
   @Input() updateTaskForm = new FormGroup({
       taskName: new FormControl(),
@@ -51,10 +46,11 @@ export class UpdatetaskComponent implements OnInit {
     this.newTask.endDate = this.updateTaskForm.get("endDate").value
     console.log(this.newTask);
     this.service.updateTaskInfo(this.newTask);
+    this.router.navigateByUrl("");
   }
 
   cancel(){
-    this.router.navigateByUrl("/viewTask");
+    this.router.navigateByUrl("");
   }
   ngAfterViewInit(): void {
     
@@ -66,7 +62,7 @@ this.service.getTasksById(this.selectedId).subscribe(res => {
   this.updateTaskForm.get("parentTaskName").setValue(this.task.parentTask);
   this.updateTaskForm.get("priority").setValue(this.task.priority);
   this.updateTaskForm.get("startDate").setValue(this.task.startDate);
-  this.updateTaskForm.get("endDate").setValue(this.task.startDate);
+  this.updateTaskForm.get("endDate").setValue(this.task.endDate);
 });
 } 
 }
